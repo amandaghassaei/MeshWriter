@@ -5,7 +5,8 @@
 function initThreeView() {
 
     var scene = new THREE.Scene();
-    var camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, -1000, 1000);//-40, 40);
+    var $threeContainer = $("#threeContainer");
+    var camera = new THREE.OrthographicCamera($threeContainer.innerWidth() / -2, $threeContainer.innerWidth() / 2, window.innerHeight / 2, window.innerHeight / -2, -1000, 1000);//-40, 40);
     var renderer = new THREE.WebGLRenderer({antialias: true});
     var controls;
 
@@ -16,7 +17,7 @@ function initThreeView() {
     function init() {
 
         var container = $("#threeContainer");
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize($threeContainer.innerWidth(), window.innerHeight);
         container.append(renderer.domElement);
 
         //scene.fog = new THREE.FogExp2(0xf4f4f4, 1.7);
@@ -28,6 +29,7 @@ function initThreeView() {
         camera.position.y = 60;
         camera.position.z = 40;
         camera.up.set( 0, 0, 1 );
+        camera.lookAt(new THREE.Vector3(0,0,0));
 
         controls = new THREE.OrbitControls(camera, container.get(0));
         controls.addEventListener('change', render);
@@ -40,14 +42,14 @@ function initThreeView() {
     }
 
     function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.left = -window.innerWidth / 2;
-        camera.right = window.innerWidth / 2;
+        camera.aspect = $threeContainer.innerWidth() / window.innerHeight;
+        camera.left = -$threeContainer.innerWidth() / 2;
+        camera.right = $threeContainer.innerWidth() / 2;
         camera.top = window.innerHeight / 2;
         camera.bottom = -window.innerHeight / 2;
         camera.updateProjectionMatrix();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize($threeContainer.innerWidth(), window.innerHeight);
 
         render();
     }

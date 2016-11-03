@@ -20,6 +20,14 @@ body{
                                   /*not supported by any browser *!*/
 }
 
+#threeContainer{
+    width:130%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:-30%;
+}
+
 img{
     width:60px;
     /*position: absolute;*/
@@ -52,7 +60,7 @@ img{
     position: absolute;
     top:0;
     right:0;
-    width:950px;
+    width:730px;
     height:100%;
     overflow:hidden;
     z-index:4;
@@ -68,6 +76,7 @@ img{
 
 #editor>.CodeMirror{
     height:100%;
+    font-size:10pt;
 }
 
 #error {
@@ -75,6 +84,7 @@ img{
     height: 30px;
     background: #ffffec;
     line-height: 30px;
+    font-size:10pt;
     padding: 0 20px;
 }
 
