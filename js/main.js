@@ -44,6 +44,7 @@ $(function() {
             saveAs(blob, "MeshWriter.js");
         }
     });
+    var $editor = $("#editor");
 
     var $error = $("#error");
     function runCode(){
@@ -67,9 +68,6 @@ $(function() {
 
     $("#saveSTL").click(function(e){
         e.preventDefault();
-
-        //$("#saveModal").modal('show');
-        //return;
 
         var data = [];
         _.each(scene.children, function(child){
@@ -98,7 +96,7 @@ $(function() {
     });
     $(document).mousemove(function(e){
        if (dragging){
-           $("#editor").css({width:$("body").innerWidth()-e.pageX});
+           $editor.css({width:$("body").innerWidth()-e.pageX});
        }
     });
 });

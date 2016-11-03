@@ -118,3 +118,7 @@ a:hover{
 span.modal-close{
     display: none;
 }
+
+textarea{
+    display: none;
+}
