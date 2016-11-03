@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mesh Writer</title>
+
+    <link href="dependencies/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="dependencies/codemirror.css"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+
+    <script type="text/javascript" src="dependencies/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="dependencies/three.js"></script>
+    <script type="text/javascript" src="dependencies/binary_stl_writer.js"></script>
+    <script type="text/javascript" src="dependencies/OrbitControls.js"></script>
+    <script type="text/javascript" src="dependencies/underscore-min.js"></script>
+    <script type="text/javascript" src="dependencies/codemirror.js"></script>
+    <script type="text/javascript" src="dependencies/javascript.js"></script>
+    <script type="text/javascript" src="dependencies/matchbrackets.js"></script>
+    <script type="text/javascript" src="dependencies/FileSaver.min.js"></script>
+
+    <script type="text/javascript" src="js/threeView.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+<div  id="threeContainer"></div>
+<div id="controls">
+    <a id="logo" target="_blank" href="http://cba.mit.edu/">
+        <img id="inactiveLogo" src="logo.png"/>
+        <img id="activeLogo" src="logo-active.png"/>
+    </a>
+    <button id="saveSTL" type="button" class="btn btn-default">Save STL</button>
+</div>
+<textarea id="code">
+scene.background = new THREE.Color(0xf4f4f4);
+
+var material = new THREE.MeshBasicMaterial({color:0xb67df0});
+var geo = new THREE.Geometry();
+
+var width = 30;
+var height = 30;
+var period = 8;
+
+for (var i=0;i<width;i++){
+	for (var j=0;j<height;j++){
+    	if (i<width-1 && j<height-1){
+          var index = i*height + j;
+          geo.faces.push(new THREE.Face3(index, index+1, index+height));
+          geo.faces.push(new THREE.Face3(index+1, index+height+1, index+height));
+        }
+    	geo.vertices.push(new THREE.Vector3(i-width/2,
+        	Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period), j-height/2));
+    }
+}
+geo.computeVertexNormals();
+
+//wireframe
+var wireframeGeo = new THREE.WireframeGeometry(geo);
+var wireframeMaterial = new THREE.LineBasicMaterial({color:0x000000, linewidth:2});
+var wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
+
+
+var mesh = new THREE.Mesh(geo, material);
+scene.add(mesh);
+scene.add(wireframe);
+</textarea>
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p><b>Mesh Writer</b><br/><br/>
+            <br/>
+            Built by <a href="http://www.amandaghassaei.com/" target="_blank">Amanda Ghassaei</a>.
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</body>
+</html>
