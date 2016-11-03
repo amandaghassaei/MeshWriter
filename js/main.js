@@ -96,7 +96,9 @@ $(function() {
     });
     $(document).mousemove(function(e){
        if (dragging){
-           $editor.css({width:$("body").innerWidth()-e.pageX});
+           var width = $("body").innerWidth()-e.pageX;
+           if (width<10) width = 10;
+           $editor.css({width:width});
        }
     });
 });
