@@ -50,7 +50,7 @@ for (var i=0;i<width;i++){
           geo.faces.push(new THREE.Face3(index+1, index+height+1, index+height));
         }
     	geo.vertices.push(new THREE.Vector3(i-width/2,
-        	Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period), j-height/2));
+        	j-height/2, Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period)));
     }
 }
 geo.computeVertexNormals();

@@ -27,6 +27,7 @@ function initThreeView() {
         camera.position.x = 40;
         camera.position.y = 40;
         camera.position.z = 40;
+        camera.up.set( 0, 0, 1 );
 
         controls = new THREE.OrbitControls(camera, container.get(0));
         controls.addEventListener('change', render);
