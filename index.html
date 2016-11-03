@@ -30,7 +30,9 @@
     </a>
     <button id="saveSTL" type="button" class="btn btn-default">Save STL</button>
 </div>
-<textarea id="code">
+<div id="editor">
+    <div id="draggable"></div>
+    <textarea id="code">
 scene.background = new THREE.Color(0xf4f4f4);
 
 var material = new THREE.MeshBasicMaterial({color:0xb67df0});
@@ -62,7 +64,8 @@ var wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
 var mesh = new THREE.Mesh(geo, material);
 scene.add(mesh);
 scene.add(wireframe);
-</textarea>
+    </textarea>
+</div>
 <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

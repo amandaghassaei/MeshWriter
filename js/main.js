@@ -60,4 +60,18 @@ $(function() {
         var blob = new Blob([stlBin], {type: 'application/octet-binary'});
         saveAs(blob, "mesh.stl");
     });
+
+    var dragging = false;
+    $('#draggable').mousedown(function(e){
+       e.preventDefault();
+       dragging = true;
+    });
+    $(document).mouseup(function(e){
+       dragging = false;
+    });
+    $(document).mousemove(function(e){
+       if (dragging){
+           $("#editor").css({width:$("body").innerWidth()-e.pageX+5});
+       }
+    });
 });
