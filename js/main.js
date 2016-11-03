@@ -14,6 +14,15 @@ $(function() {
         $("#activeLogo").hide();
     });
 
+    var myEvent = window.attachEvent || window.addEventListener;
+    var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'; /// make IE7, IE8 compitable
+
+    myEvent(chkevent, function(e) { // For >=IE7, Chrome, Firefox
+        var confirmationMessage = 'Are you sure to leave the page?';  // a space
+        (e || window.event).returnValue = confirmationMessage;
+        return confirmationMessage;
+    });
+
     var three = initThreeView();
 
     scene = three.scene;
@@ -24,10 +33,19 @@ $(function() {
         mode:  "javascript"
     });
 
-    $( "body" ).keyup(function() {
-      runCode();
+    $("#editor").keyup(function(e) {
+        runCode();
+    });
+    $(window).bind('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.keyCode == 83) {
+            e.preventDefault();
+            var js = editor.getValue();
+            var blob = new Blob([js], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, "MeshWriter.js");
+        }
     });
 
+    var $error = $("#error");
     function runCode(){
         try{
             var js = editor.getValue();
@@ -35,14 +53,23 @@ $(function() {
             scene.children = [];
             eval(js);
             three.renderer.render(scene, three.camera);
+            $error.html("No Errors");
         } catch(err){
-            console.log(err);
+            $error.html(err.name + ": " + err.message);
         }
     }
     runCode();
 
+    $("#about").click(function(e){
+        e.preventDefault();
+        $("#aboutModal").modal('show');
+    });
+
     $("#saveSTL").click(function(e){
         e.preventDefault();
+
+        //$("#saveModal").modal('show');
+        //return;
 
         var data = [];
         _.each(scene.children, function(child){

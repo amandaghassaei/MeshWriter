@@ -22,10 +22,10 @@ function initThreeView() {
         //scene.fog = new THREE.FogExp2(0xf4f4f4, 1.7);
         //renderer.setClearColor(scene.fog.color);
 
-        camera.zoom = 15;
+        camera.zoom = 20;
         camera.updateProjectionMatrix();
         camera.position.x = 40;
-        camera.position.y = 40;
+        camera.position.y = 60;
         camera.position.z = 40;
         camera.up.set( 0, 0, 1 );
 

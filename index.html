@@ -5,10 +5,13 @@
     <title>Mesh Writer</title>
 
     <link href="dependencies/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="dependencies/flat-ui.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="dependencies/codemirror.css"/>
     <link rel="stylesheet" type="text/css" href="main.css"/>
 
     <script type="text/javascript" src="dependencies/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="dependencies/bootstrap.min.js"></script>
+    <script type="text/javascript" src="dependencies/flat-ui.min.js"></script>
     <script type="text/javascript" src="dependencies/three.js"></script>
     <script type="text/javascript" src="dependencies/binary_stl_writer.js"></script>
     <script type="text/javascript" src="dependencies/OrbitControls.js"></script>
@@ -28,11 +31,14 @@
         <img id="inactiveLogo" src="logo.png"/>
         <img id="activeLogo" src="logo-active.png"/>
     </a>
+    <button id="about" type="button" class="btn btn-default">About</button>
     <button id="saveSTL" type="button" class="btn btn-default">Save STL</button>
 </div>
 <div id="editor">
     <div id="draggable"></div>
+    <div id="error"></div>
     <textarea id="code">
+
 scene.background = new THREE.Color(0xf4f4f4);
 
 var material = new THREE.MeshBasicMaterial({color:0xb67df0});
@@ -46,11 +52,11 @@ for (var i=0;i<width;i++){
 	for (var j=0;j<height;j++){
     	if (i<width-1 && j<height-1){
           var index = i*height + j;
-          geo.faces.push(new THREE.Face3(index, index+1, index+height));
-          geo.faces.push(new THREE.Face3(index+1, index+height+1, index+height));
+          geo.faces.push(new THREE.Face3(index, index+height, index+1));
+          geo.faces.push(new THREE.Face3(index+1, index+height, index+height+1));
         }
-    	geo.vertices.push(new THREE.Vector3(i-width/2,
-        	j-height/2, Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period)));
+    	geo.vertices.push(new THREE.Vector3(i-width/2, j-height/2,
+        	Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period)));
     }
 }
 geo.computeVertexNormals();
@@ -64,15 +70,29 @@ var wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
 var mesh = new THREE.Mesh(geo, material);
 scene.add(mesh);
 scene.add(wireframe);
+
     </textarea>
 </div>
 <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-med">
     <div class="modal-content">
       <div class="modal-body">
-        <p><b>Mesh Writer</b><br/><br/>
-            <br/>
-            Built by <a href="http://www.amandaghassaei.com/" target="_blank">Amanda Ghassaei</a>.
+        <p><b class="modalTitle">Mesh Writer</b><br/><br/>
+            Sometimes you need a quick way to code up an STL.  This is a <a href="https://threejs.org/" target="_blank">Three.js</a> + <a target="_blank" href="https://codemirror.net/">CodeMirror</a> tool to do live WebGL coding with STL export.<br/><br/>
+            Click "Save STL" to save a binary STL.<br/>
+            Ctrl/&#8984;+S to save a .js file with your code.<br/><br/>
+            Built by <a href="http://www.amandaghassaei.com/" target="_blank">Amanda Ghassaei</a>, code on <a target="_blank" href="https://github.com/amandaghassaei/MeshWriter">Github</a>.
+        </p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p><b>Save As</b><br/><br/>
+            <input val="mesh">.
         </p>
       </div>
     </div><!-- /.modal-content -->
