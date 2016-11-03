@@ -55,6 +55,7 @@ img{
     width:700px;
     height:100%;
     overflow:hidden;
+    z-index:4;
 }
 
 #draggable{

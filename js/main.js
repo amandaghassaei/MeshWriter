@@ -71,7 +71,7 @@ $(function() {
     });
     $(document).mousemove(function(e){
        if (dragging){
-           $("#editor").css({width:$("body").innerWidth()-e.pageX+5});
+           $("#editor").css({width:$("body").innerWidth()-e.pageX});
        }
     });
 });
