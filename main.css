@@ -81,11 +81,13 @@ img{
 
 #error {
     width: 100%;
-    height: 30px;
     background: #ffffec;
-    line-height: 30px;
-    font-size:10pt;
-    padding: 0 20px;
+    line-height: 22px;
+    font-size: 10pt;
+    padding: 5px 20px;
+    position: absolute;
+    background: rgba(255, 255, 89, 0.9);
+    z-index: 10;
 }
 
 .modalTitle{

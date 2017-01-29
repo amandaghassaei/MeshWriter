@@ -54,9 +54,35 @@ $(function() {
             scene.children = [];
             eval(js);
             three.renderer.render(scene, three.camera);
-            $error.html("No Errors");
+            $error.hide();
         } catch(err){
-            $error.html(err.name + ": " + err.message);
+            var fileName = err.fileName;
+            var lineNum = err.lineNumber;
+            if (fileName === undefined){
+                if (err.stack){
+                    var stack = err.stack.split("\n");
+                    if (stack.length > 1){
+                        var data = stack[1];
+                        var checkUserError = data.split("<anonymous>:");
+                        if (checkUserError.length>1){
+                            fileName = undefined;
+                            lineNum = checkUserError[1].split(":")[0];
+                        } else {
+                            fileName = data.substr(4);
+                            if (fileName.includes("/js/main.js")){
+                                fileName = undefined;
+                                lineNum = "unknown";
+                            }
+                        }
+                    }
+                }
+            } else if (fileName.includes("/js/main.js")) fileName = undefined;
+            if (fileName !== undefined) fileName = " " + fileName;
+            else fileName = "";
+            if (lineNum !== undefined) lineNum = "line " + lineNum;
+            else lineNum = "";
+            $error.html(err.name + ": " + err.message + "<br/><b>" + lineNum + fileName + "</b>");
+            $error.show();
         }
     }
     runCode();
