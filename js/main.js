@@ -112,6 +112,13 @@ $(function() {
         saveAs(blob, "mesh.stl");
     });
 
+    $("#saveOBJ").click(function(){
+        var exporter = new THREE.OBJExporter();
+        var result = exporter.parse( scene );
+        var blob = new Blob([result], {type: 'application/octet-binary'});
+        saveAs(blob, "mesh.obj");
+    });
+
     var dragging = false;
     $('#draggable').mousedown(function(e){
        e.preventDefault();
