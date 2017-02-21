@@ -66,11 +66,12 @@ for (var i=0;i<width;i++){
           geo.faces.push(new THREE.Face3(index, index+height, index+1));
           geo.faces.push(new THREE.Face3(index+1, index+height, index+height+1));
         }
-    	geo.vertices.push(new THREE.Vector3(i-width/2, j-height/2,
+    	geo.vertices.push(new THREE.Vector3(i, j,
         	Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period)));
     }
 }
 geo.computeVertexNormals();
+geo.center();
 
 //wireframe
 var wireframeGeo = new THREE.WireframeGeometry(geo);
