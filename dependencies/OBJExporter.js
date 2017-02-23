@@ -241,11 +241,11 @@ THREE.OBJExporter.prototype = {
 
 			}
 
-			if ( child instanceof THREE.Line ) {
-
-				parseLine( child );
-
-			}
+			// if ( child instanceof THREE.Line ) {
+            //
+			// 	parseLine( child );
+            //
+			// }
 
 		} );
 
