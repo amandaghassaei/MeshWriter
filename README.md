@@ -1,6 +1,8 @@
 # MeshWriter
 
-Sometimes you need a quick way to code up an mesh. This is a [Three.js](https://threejs.org/) + [CodeMirror](https://codemirror.net/) tool to do live WebGL coding with STL and OBJ export.  
+<img style="width:100%" src="meshwriter.png" />
+
+Sometimes you need a quick way to code up an triangulated  mesh. This is a [Three.js](https://threejs.org/) + [CodeMirror](https://codemirror.net/) tool to do live WebGL coding with STL and OBJ export.  
 
 Drag to rotate, scroll to zoom, right click and drag to pan.  
 Click "Save STL" to save a binary STL.  
