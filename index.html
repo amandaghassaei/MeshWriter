@@ -52,34 +52,52 @@
 
 scene.background = new THREE.Color(0xf4f4f4);
 
-var material = new THREE.MeshBasicMaterial({color:0xb67df0});
-var geo = new THREE.Geometry();
+const material = new THREE.MeshBasicMaterial({color:0xb67df0});
+const geo = new THREE.BufferGeometry();
 
-var width = 30;
-var height = 30;
-var period = 8;
+const width = 30;
+const height = 25;
+const period = 8;
 
-for (var i=0;i<width;i++){
-	for (var j=0;j<height;j++){
-    	if (i<width-1 && j<height-1){
-          var index = i*height + j;
-          geo.faces.push(new THREE.Face3(index, index+height, index+1));
-          geo.faces.push(new THREE.Face3(index+1, index+height, index+height+1));
+const numVertices = width * height;
+const uvs = new Float32Array(numVertices * 2);
+const positions = new Float32Array(numVertices * 3);
+const faces = new Uint16Array((width - 1) * (height - 1) * 6);
+let faceIndex = 0;
+for (let i = 0; i < width; i++){
+  for (let j = 0;j < height; j++){
+        const index = i*height + j;
+      if (i<width-1 && j<height-1){
+          faces[3 * faceIndex] = index;
+          faces[3 * faceIndex + 1] = index + height;
+          faces[3 * faceIndex + 2] = index + 1;
+          faceIndex++;
+          faces[3 * faceIndex] = index + 1;
+          faces[3 * faceIndex + 1] = index + height;
+          faces[3 * faceIndex + 2] = index + height + 1;
+          faceIndex++;
         }
-    	geo.vertices.push(new THREE.Vector3(i, j,
-        	Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period)));
+        uvs[2 * index] = i / width;
+        uvs[2 * index + 1] = j / height;
+        positions[3 * index] = i;
+        positions[3 * index + 1] = j;
+        positions[3 * index + 2] = Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period);
     }
 }
+geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+geo.setIndex(new THREE.BufferAttribute(faces, 1));
+
 geo.computeVertexNormals();
 geo.center();
 
-//wireframe
-var wireframeGeo = new THREE.WireframeGeometry(geo);
-var wireframeMaterial = new THREE.LineBasicMaterial({color:0x000000, linewidth:2});
-var wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
+// Wireframe
+let wireframeGeo = new THREE.WireframeGeometry(geo);
+let wireframeMaterial = new THREE.LineBasicMaterial({color:0x000000, linewidth:1});
+let wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
 
 
-var mesh = new THREE.Mesh(geo, material);
+let mesh = new THREE.Mesh(geo, material);
 scene.add(mesh);
 scene.add(wireframe);
 
