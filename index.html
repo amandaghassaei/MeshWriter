@@ -56,7 +56,7 @@ const material = new THREE.MeshBasicMaterial({color:0xb67df0});
 const geo = new THREE.BufferGeometry();
 
 const width = 30;
-const height = 25;
+const height = 30;
 const period = 8;
 
 const numVertices = width * height;
@@ -66,7 +66,7 @@ const faces = new Uint16Array((width - 1) * (height - 1) * 6);
 let faceIndex = 0;
 for (let i = 0; i < width; i++) {
   for (let j = 0; j < height; j++) {
-        const index = i*height + j;
+      const index = i * height + j;
       if (i < width - 1 && j < height-1) {
           faces[3 * faceIndex] = index;
           faces[3 * faceIndex + 1] = index + height;
@@ -81,7 +81,9 @@ for (let i = 0; i < width; i++) {
         uvs[2 * index + 1] = j / height;
         positions[3 * index] = i;
         positions[3 * index + 1] = j;
-        positions[3 * index + 2] = Math.sin(Math.PI*2*i/period)+Math.sin(Math.PI*2*j/period);
+        positions[3 * index + 2] =
+          Math.sin(Math.PI * 2 * i / period) +
+          Math.sin(Math.PI * 2 * j / period);
     }
 }
 geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -93,7 +95,7 @@ geo.center();
 
 // Wireframe
 let wireframeGeo = new THREE.WireframeGeometry(geo);
-let wireframeMaterial = new THREE.LineBasicMaterial({color:0x000000, linewidth:1});
+let wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 1 });
 let wireframe = new THREE.LineSegments(wireframeGeo, wireframeMaterial);
 
 
