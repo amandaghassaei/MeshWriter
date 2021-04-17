@@ -10,6 +10,6 @@ Click "Save OBJ" to save an OBJ.
 Ctrl/⌘+S to save a .js file with your code.  
 Drag to resize editor.  
 
-Live demo at <a href="http://github.amandaghassaei.com/MeshWriter/" target="_blank">github.amandaghassaei.com/MeshWriter</a> 
+Live demo at <a href="https://apps.amandaghassaei.com/MeshWriter/" target="_blank">github.amandaghassaei.com/MeshWriter</a> 
 
 Built by [Amanda Ghassaei](http://www.amandaghassaei.com/). 
