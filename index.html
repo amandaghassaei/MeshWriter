@@ -65,7 +65,7 @@ const positions = new Float32Array(numVertices * 3);
 const faces = new Uint16Array((width - 1) * (height - 1) * 6);
 let faceIndex = 0;
 for (let i = 0; i < width; i++){
-  for (let j = 0;j < height; j++){
+  for (let j = 0; j < height; j++){
         const index = i*height + j;
       if (i<width-1 && j<height-1){
           faces[3 * faceIndex] = index;
