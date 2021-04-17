@@ -77,8 +77,8 @@ for (let i = 0; i < width; i++) {
           faces[3 * faceIndex + 2] = index + height + 1;
           faceIndex++;
         }
-        uvs[2 * index] = i / width;
-        uvs[2 * index + 1] = j / height;
+        uvs[2 * index] = i / (width - 1);
+        uvs[2 * index + 1] = j / (height - 1);
         positions[3 * index] = i;
         positions[3 * index + 1] = j;
         positions[3 * index + 2] =
