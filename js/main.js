@@ -94,28 +94,15 @@ $(function() {
 
     $("#saveSTL").click(function(e){
         e.preventDefault();
-
-        var data = [];
-        _.each(scene.children, function(child){
-            if (!child.geometry) return;
-            if (child.type !== "Mesh") return;
-            var geo = child.geometry.clone();
-            geo.applyMatrix(new THREE.Matrix4().makeScale(child.scale.x, child.scale.y, child.scale.z));
-            geo.applyMatrix(new THREE.Matrix4().makeRotationFromQuaternion(child.quaternion));
-            geo.applyMatrix(new THREE.Matrix4().makeTranslation(child.position.x, child.position.y, child.position.z));
-            data.push({geo: geo, offset:new THREE.Vector3(0,0,0), orientation:new THREE.Quaternion(0,0,0,1)});
-        });
-
-        var stlBin = geometryToSTLBin(data);
-        if (!stlBin) return;
-        var blob = new Blob([stlBin], {type: 'application/octet-binary'});
+        var stl = new THREE.STLExporter().parse(scene);
+        if (!stl) return;
+        var blob = new Blob([stl], {type: 'application/octet-binary'});
         saveAs(blob, "mesh.stl");
     });
 
     $("#saveOBJ").click(function(){
-        var exporter = new THREE.OBJExporter();
-        var result = exporter.parse( scene );
-        var blob = new Blob([result], {type: 'application/octet-binary'});
+        var obj = new THREE.OBJExporter().parse(scene);
+        var blob = new Blob([obj], {type: 'application/octet-binary'});
         saveAs(blob, "mesh.obj");
     });
 
